@@ -2049,6 +2049,42 @@ Nor would this
       </Info>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="CAPTURE parses string and character constants" tags="[capture][messages]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        ("comma, in string", "escaped, \", ") := "escaped, ", "
+      </Info>
+      <Info>
+        "single quote in string,'," := "single quote in string,',"
+      </Info>
+      <Info>
+        "some escapes, \\,\\\\" := "some escapes, \,\\"
+      </Info>
+      <Info>
+        "some, ), unmatched, } prenheses {[&lt;" := "some, ), unmatched, } prenheses {[&lt;"
+      </Info>
+      <Info>
+        '"' := '"'
+      </Info>
+      <Info>
+        '\'' := '''
+      </Info>
+      <Info>
+        ',' := ','
+      </Info>
+      <Info>
+        '}' := '}'
+      </Info>
+      <Info>
+        ')' := ')'
+      </Info>
+      <Info>
+        '(' := '('
+      </Info>
+      <Info>
+        '{' := '{'
+      </Info>
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="Capture and info messages" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
       <Section name="Capture should stringify like assertions" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
         <Info>
@@ -2662,6 +2698,35 @@ Nor would this
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="Directly creating an EnumInfo" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+      <Expression success="true" type="CHECK" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+        <Original>
+          enumInfo->lookup(0) == "Value1"
+        </Original>
+        <Expanded>
+          Value1 == "Value1"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="CHECK" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+        <Original>
+          enumInfo->lookup(1) == "Value2"
+        </Original>
+        <Expanded>
+          Value2 == "Value2"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="CHECK" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+        <Original>
+          enumInfo->lookup(3) == "{** unexpected enum value **}"
+        </Original>
+        <Expanded>
+          {** unexpected enum value **}
+==
+"{** unexpected enum value **}"
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="EndsWith string matcher" tags="[.][failing][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Expression success="false" type="CHECK_THAT" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
         <Original>
@@ -2680,6 +2745,70 @@ Nor would this
         </Expanded>
       </Expression>
       <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="Enums can quickly have stringification enabled using REGISTER_ENUM" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( EnumClass3::Value1 ) == "Value1"
+        </Original>
+        <Expanded>
+          "Value1" == "Value1"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( EnumClass3::Value2 ) == "Value2"
+        </Original>
+        <Expanded>
+          "Value2" == "Value2"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( EnumClass3::Value3 ) == "Value3"
+        </Original>
+        <Expanded>
+          "Value3" == "Value3"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( EnumClass3::Value4 ) == "{** unexpected enum value **}"
+        </Original>
+        <Expanded>
+          "{** unexpected enum value **}"
+==
+"{** unexpected enum value **}"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( ec3 ) == "Value2"
+        </Original>
+        <Expanded>
+          "Value2" == "Value2"
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="Enums in namespaces can quickly have stringification enabled using REGISTER_ENUM" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( Bikeshed::Colours::Red ) == "Red"
+        </Original>
+        <Expanded>
+          "Red" == "Red"
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/EnumToString.tests.cpp" >
+        <Original>
+          stringify( Bikeshed::Colours::Blue ) == "Blue"
+        </Original>
+        <Expanded>
+          "Blue" == "Blue"
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
     </TestCase>
     <TestCase name="Epsilon only applies to Approx's value" tags="[Approx]" filename="projects/<exe-name>/UsageTests/Approx.tests.cpp" >
       <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Approx.tests.cpp" >
@@ -7649,6 +7778,47 @@ Nor would this
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="Precision of floating point stringification can be set" tags="[floatingPoint][toString]" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+      <Section name="Floats" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+        <Expression success="true" type="CHECK" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+          <Original>
+            str1.size() == 3 + 5
+          </Original>
+          <Expanded>
+            8 == 8
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+          <Original>
+            str2.size() == 3 + 10
+          </Original>
+          <Expanded>
+            13 == 13
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Double" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+        <Expression success="true" type="CHECK" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+          <Original>
+            str1.size() == 2 + 5
+          </Original>
+          <Expanded>
+            7 == 7
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
+          <Original>
+            str2.size() == 2 + 15
+          </Original>
+          <Expanded>
+            17 == 17
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="Predicate matcher can accept const char*" tags="[compilation][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Expression success="true" type="REQUIRE_THAT" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
         <Original>
@@ -12313,6 +12483,74 @@ loose text artifact
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="parseEnums" tags="[Strings][enums]" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+      <Section name="No enums" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "" ), Equals( std::vector&lt;std::string>{} )
+          </Original>
+          <Expanded>
+            {  } Equals: {  }
+          </Expanded>
+        </Expression>
+        <OverallResults successes="1" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="One enum value" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "ClassName::EnumName::Value1" ), Equals(std::vector&lt;std::string>{"Value1"} )
+          </Original>
+          <Expanded>
+            { "Value1" } Equals: { "Value1" }
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "Value1" ), Equals( std::vector&lt;std::string>{"Value1"} )
+          </Original>
+          <Expanded>
+            { "Value1" } Equals: { "Value1" }
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "EnumName::Value1" ), Equals(std::vector&lt;std::string>{"Value1"} )
+          </Original>
+          <Expanded>
+            { "Value1" } Equals: { "Value1" }
+          </Expanded>
+        </Expression>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="Multiple enum values" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "ClassName::EnumName::Value1, ClassName::EnumName::Value2" ), Equals( std::vector&lt;std::string>{"Value1", "Value2"} )
+          </Original>
+          <Expanded>
+            { "Value1", "Value2" } Equals: { "Value1", "Value2" }
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "ClassName::EnumName::Value1, ClassName::EnumName::Value2, ClassName::EnumName::Value3" ), Equals( std::vector&lt;std::string>{"Value1", "Value2", "Value3"} )
+          </Original>
+          <Expanded>
+            { "Value1", "Value2", "Value3" } Equals: { "Value1", "Value2", "Value3" }
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+          <Original>
+            parseEnums( "ClassName::EnumName::Value1,ClassName::EnumName::Value2 , ClassName::EnumName::Value3" ), Equals( std::vector&lt;std::string>{"Value1", "Value2", "Value3"} )
+          </Original>
+          <Expanded>
+            { "Value1", "Value2", "Value3" } Equals: { "Value1", "Value2", "Value3" }
+          </Expanded>
+        </Expression>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="pointer to class" tags="[Tricky]" filename="projects/<exe-name>/UsageTests/Tricky.tests.cpp" >
       <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Tricky.tests.cpp" >
         <Original>
@@ -12606,6 +12844,33 @@ loose text artifact
         </Original>
         <Expanded>
           { ".", "magic-tag" } ( Contains: "magic-tag" and Contains: "." )
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="splitString" tags="[Strings]" filename="projects/<exe-name>/IntrospectiveTests/String.tests.cpp" >
+      <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/String.tests.cpp" >
+        <Original>
+          splitStringRef("", ',' ), Equals(std::vector&lt;StringRef>() )
+        </Original>
+        <Expanded>
+          {  } Equals: {  }
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/String.tests.cpp" >
+        <Original>
+          splitStringRef("abc", ',' ), Equals(std::vector&lt;StringRef>{"abc"} )
+        </Original>
+        <Expanded>
+          { abc } Equals: { abc }
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="CHECK_THAT" filename="projects/<exe-name>/IntrospectiveTests/String.tests.cpp" >
+        <Original>
+          splitStringRef("abc,def", ',' ), Equals(std::vector&lt;StringRef>{"abc", "def"} )
+        </Original>
+        <Expanded>
+          { abc, def } Equals: { abc, def }
         </Expanded>
       </Expression>
       <OverallResult success="true"/>
@@ -13504,7 +13769,7 @@ loose text artifact
       </Section>
       <OverallResult success="true"/>
     </TestCase>
-    <OverallResults successes="1283" failures="142" expectedFailures="21"/>
+    <OverallResults successes="1308" failures="142" expectedFailures="21"/>
   </Group>
-  <OverallResults successes="1283" failures="141" expectedFailures="21"/>
+  <OverallResults successes="1308" failures="141" expectedFailures="21"/>
 </Catch>
