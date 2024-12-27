@@ -144,6 +144,7 @@ set(IMPL_HEADERS
   ${SOURCES_DIR}/internal/catch_uniform_integer_distribution.hpp
   ${SOURCES_DIR}/internal/catch_unique_name.hpp
   ${SOURCES_DIR}/internal/catch_unique_ptr.hpp
+  ${SOURCES_DIR}/internal/catch_unreachable.hpp
   ${SOURCES_DIR}/internal/catch_void_type.hpp
   ${SOURCES_DIR}/internal/catch_wildcard_pattern.hpp
   ${SOURCES_DIR}/internal/catch_windows_h_proxy.hpp
