@@ -7,6 +7,7 @@ jobs:
     name: ${{matrix.os}}, ${{matrix.std}}, ${{matrix.build_type}}, ${{matrix.platform}}
     runs-on: ${{matrix.os}}
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-2019, windows-2022]
         platform: [Win32, x64]

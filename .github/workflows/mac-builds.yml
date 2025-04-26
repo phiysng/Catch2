@@ -10,6 +10,7 @@ jobs:
     # the Intel based images for free to OSS projects.
     runs-on: macos-13
     strategy:
+      fail-fast: false
       matrix:
         cxx:
           - clang++
