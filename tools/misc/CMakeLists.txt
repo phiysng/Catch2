@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(CatchCoverageHelper)
+project(CatchCoverageHelper LANGUAGES CXX)
 
 add_executable(CoverageHelper coverage-helper.cpp)
 set_property(TARGET CoverageHelper PROPERTY CXX_STANDARD 11)
