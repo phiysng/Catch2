@@ -43,7 +43,5 @@ jobs:
       run: make -j `sysctl -n hw.ncpu`
 
     - name: Run tests
-      env:
-          CTEST_OUTPUT_ON_FAILURE: 1
       working-directory: ${{runner.workspace}}/build
-      run: ctest -C ${{matrix.build_type}} -j `sysctl -n hw.ncpu`
+      run: ctest -C ${{matrix.build_type}} -j `sysctl -n hw.ncpu` --output-on-failure

@@ -100,10 +100,8 @@ jobs:
       run: ninja
 
     - name: Run tests
-      env:
-          CTEST_OUTPUT_ON_FAILURE: 1
       working-directory: ${{runner.workspace}}/build
-      run: ctest -C ${{matrix.build_type}} -j `nproc` ${{matrix.other_ctest_args}}
+      run: ctest -C ${{matrix.build_type}} -j `nproc` ${{matrix.other_ctest_args}} --output-on-failure
   clang-tidy:
     name: clang-tidy ${{matrix.version}}, ${{matrix.build_description}}, C++${{matrix.std}} ${{matrix.build_type}}
     runs-on: ubuntu-22.04
