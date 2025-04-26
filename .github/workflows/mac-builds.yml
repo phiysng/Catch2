@@ -30,7 +30,7 @@ jobs:
         CXX: ${{matrix.cxx}}
         CXXFLAGS: ${{matrix.cxxflags}}
       run: |
-        cmake -Bbuild -H$GITHUB_WORKSPACE \
+        cmake -Bbuild -S$GITHUB_WORKSPACE \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
               -DCMAKE_CXX_STANDARD_REQUIRED=ON \
