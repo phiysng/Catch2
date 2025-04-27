@@ -82,13 +82,10 @@ jobs:
       # Note: $GITHUB_WORKSPACE is distinct from ${{runner.workspace}}.
       #       This is important
       run: |
-        cmake -Bbuild -GNinja \
+        cmake --preset basic-tests -GNinja \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_COMPILER=${{matrix.cxx}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
-              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-              -DCMAKE_CXX_EXTENSIONS=OFF \
-              -DCATCH_DEVELOPMENT_BUILD=ON \
               ${{matrix.cmake_configurations}}
 
     - name: Build
@@ -115,19 +112,16 @@ jobs:
         clangtidy="clang-tidy-15;-use-color"
         # Use a dummy compiler/linker/ar/ranlib to effectively disable the
         # compilation and only run clang-tidy.
-        cmake -Bbuild -GNinja \
-              -DCMAKE_BUILD_TYPE=Debug \
-              -DCMAKE_CXX_COMPILER=clang++-15 \
-              -DCMAKE_CXX_STANDARD=17 \
-              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-              -DCMAKE_CXX_EXTENSIONS=OFF \
-              -DCATCH_DEVELOPMENT_BUILD=ON \
-              -DCMAKE_CXX_CLANG_TIDY="$clangtidy" \
-              -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/true \
+        cmake --preset basic-tests -GNinja \
               -DCMAKE_AR=/usr/bin/true \
+              -DCMAKE_BUILD_TYPE=Debug \
+              -DCMAKE_CXX_CLANG_TIDY="$clangtidy" \
               -DCMAKE_CXX_COMPILER_AR=/usr/bin/true \
-              -DCMAKE_RANLIB=/usr/bin/true \
+              -DCMAKE_CXX_COMPILER_LAUNCHER=/usr/bin/true \
+              -DCMAKE_CXX_COMPILER=clang++-15 \
               -DCMAKE_CXX_LINK_EXECUTABLE=/usr/bin/true \
+              -DCMAKE_CXX_STANDARD=17 \
+              -DCMAKE_RANLIB=/usr/bin/true \
               -DCATCH_BUILD_EXAMPLES=ON \
               -DCATCH_ENABLE_CMAKE_HELPER_TESTS=ON
 

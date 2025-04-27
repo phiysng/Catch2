@@ -19,11 +19,9 @@ jobs:
 
     - name: Configure
       run: |
-        cmake -Bbuild -GNinja \
+        cmake --preset basic-tests -GNinja \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
-              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-              -DCATCH_DEVELOPMENT_BUILD=ON \
               -DCATCH_BUILD_EXAMPLES=ON \
               -DCATCH_BUILD_EXTRA_TESTS=ON
 

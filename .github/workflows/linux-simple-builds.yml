@@ -101,13 +101,10 @@ jobs:
       # Note: $GITHUB_WORKSPACE is distinct from ${{runner.workspace}}.
       #       This is important
       run: |
-        cmake -Bbuild -GNinja \
+        cmake --preset basic-tests -GNinja \
               -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_COMPILER=${{matrix.cxx}} \
-              -DCMAKE_CXX_STANDARD=${{matrix.std}} \
-              -DCMAKE_CXX_STANDARD_REQUIRED=ON \
-              -DCMAKE_CXX_EXTENSIONS=OFF \
-              -DCATCH_DEVELOPMENT_BUILD=ON
+              -DCMAKE_CXX_STANDARD=${{matrix.std}}
 
     - name: Build
       run: cmake --build build
