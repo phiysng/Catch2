@@ -484,8 +484,8 @@ namespace Catch {
         // Best effort cleanup for sections that have not been destructed yet
         // Since this is a fatal error, we have not had and won't have the opportunity to destruct them properly
         while (!m_activeSections.empty()) {
-            auto nl = m_activeSections.back()->nameAndLocation();
-            SectionEndInfo endInfo{ SectionInfo(CATCH_MOVE(nl.location), CATCH_MOVE(nl.name)), {}, 0.0 };
+            auto const& nl = m_activeSections.back()->nameAndLocation();
+            SectionEndInfo endInfo{ SectionInfo(nl.location, nl.name), {}, 0.0 };
             sectionEndedEarly(CATCH_MOVE(endInfo));
         }
         handleUnfinishedSections();
