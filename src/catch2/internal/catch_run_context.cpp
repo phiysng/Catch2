@@ -171,7 +171,9 @@ namespace Catch {
         m_reporter(CATCH_MOVE(reporter)),
         m_lastAssertionInfo{ StringRef(), SourceLineInfo("",0), StringRef(), ResultDisposition::Normal },
         m_outputRedirect( makeOutputRedirect( m_reporter->getPreferences().shouldRedirectStdOut ) ),
-        m_includeSuccessfulResults( m_config->includeSuccessfulResults() || m_reporter->getPreferences().shouldReportAllAssertions )
+        m_abortAfterXFailedAssertions( m_config->abortAfter() ),
+        m_includeSuccessfulResults( m_config->includeSuccessfulResults() || m_reporter->getPreferences().shouldReportAllAssertions ),
+        m_shouldDebugBreak( m_config->shouldDebugBreak() )
     {
         getCurrentMutableContext().setResultCapture( this );
         m_reporter->testRunStarting(m_runInfo);
@@ -523,7 +525,7 @@ namespace Catch {
     }
 
     bool RunContext::aborting() const {
-        return m_totals.assertions.failed >= static_cast<std::size_t>(m_config->abortAfter());
+        return m_totals.assertions.failed >= m_abortAfterXFailedAssertions;
     }
 
     void RunContext::runCurrentTest() {
@@ -676,7 +678,7 @@ namespace Catch {
     }
 
     void RunContext::populateReaction( AssertionReaction& reaction ) {
-        reaction.shouldDebugBreak = m_config->shouldDebugBreak();
+        reaction.shouldDebugBreak = m_shouldDebugBreak;
         reaction.shouldThrow = aborting() || (m_lastAssertionInfo.resultDisposition & ResultDisposition::Normal);
     }
 
