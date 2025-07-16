@@ -119,7 +119,6 @@ namespace Catch {
         void runCurrentTest();
         void invokeActiveTestCase();
 
-        void resetAssertionInfo();
         bool testForMissingAssertions( Counts& assertions );
 
         void assertionEnded( AssertionResult&& result );
@@ -130,6 +129,11 @@ namespace Catch {
                     bool negated );
 
         void populateReaction( AssertionReaction& reaction, bool has_normal_disposition );
+
+        // Creates dummy info for unexpected exceptions/fatal errors,
+        // where we do not have the access to one, but we still need
+        // to send one to the reporters.
+        AssertionInfo makeDummyAssertionInfo();
 
     private:
 
@@ -145,16 +149,18 @@ namespace Catch {
         IEventListenerPtr m_reporter;
         std::vector<MessageInfo> m_messages;
         std::vector<ScopedMessage> m_messageScopes; /* Keeps owners of so-called unscoped messages. */
-        AssertionInfo m_lastAssertionInfo;
+        SourceLineInfo m_lastKnownLineInfo;
         std::vector<SectionEndInfo> m_unfinishedSections;
         std::vector<ITracker*> m_activeSections;
         TrackerContext m_trackerContext;
         Detail::unique_ptr<OutputRedirect> m_outputRedirect;
         FatalConditionHandler m_fatalConditionhandler;
+        // Caches m_config->abortAfter() to avoid vptr calls/allow inlining
         size_t m_abortAfterXFailedAssertions;
         bool m_lastAssertionPassed = false;
         bool m_shouldReportUnexpected = true;
         bool m_includeSuccessfulResults;
+        // Caches m_config->shouldDebugBreak() to avoid vptr calls/allow inlining
         bool m_shouldDebugBreak;
     };
 

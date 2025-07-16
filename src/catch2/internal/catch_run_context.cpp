@@ -169,7 +169,7 @@ namespace Catch {
     :   m_runInfo(_config->name()),
         m_config(_config),
         m_reporter(CATCH_MOVE(reporter)),
-        m_lastAssertionInfo{ StringRef(), SourceLineInfo("",0), StringRef(), ResultDisposition::Normal },
+        m_lastKnownLineInfo("DummyLocation", static_cast<size_t>(-1)),
         m_outputRedirect( makeOutputRedirect( m_reporter->getPreferences().shouldRedirectStdOut ) ),
         m_abortAfterXFailedAssertions( m_config->abortAfter() ),
         m_includeSuccessfulResults( m_config->includeSuccessfulResults() || m_reporter->getPreferences().shouldReportAllAssertions ),
@@ -307,11 +307,6 @@ namespace Catch {
         // populateReaction is run if it is needed
         m_lastResult = CATCH_MOVE( result );
     }
-    void RunContext::resetAssertionInfo() {
-        m_lastAssertionInfo.macroName = StringRef();
-        m_lastAssertionInfo.capturedExpression = "{Unknown expression after the reported line}"_sr;
-        m_lastAssertionInfo.resultDisposition = ResultDisposition::Normal;
-    }
 
     void RunContext::notifyAssertionStarted( AssertionInfo const& info ) {
         auto _ = scopedDeactivate( *m_outputRedirect );
@@ -331,7 +326,7 @@ namespace Catch {
         m_activeSections.push_back(&sectionTracker);
 
         SectionInfo sectionInfo( sectionLineInfo, static_cast<std::string>(sectionName) );
-        m_lastAssertionInfo.lineInfo = sectionLineInfo;
+        m_lastKnownLineInfo = sectionLineInfo;
 
         {
             auto _ = scopedDeactivate( *m_outputRedirect );
@@ -350,7 +345,7 @@ namespace Catch {
             m_trackerContext,
             TestCaseTracking::NameAndLocationRef(
                  generatorName, lineInfo ) );
-        m_lastAssertionInfo.lineInfo = lineInfo;
+        m_lastKnownLineInfo = lineInfo;
         return tracker;
     }
 
@@ -476,10 +471,10 @@ namespace Catch {
         // Instead, fake a result data.
         AssertionResultData tempResult( ResultWas::FatalErrorCondition, { false } );
         tempResult.message = static_cast<std::string>(message);
-        AssertionResult result(m_lastAssertionInfo, CATCH_MOVE(tempResult));
+        AssertionResult result( makeDummyAssertionInfo(),
+                                CATCH_MOVE( tempResult ) );
 
         assertionEnded(CATCH_MOVE(result) );
-        resetAssertionInfo();
 
         // Best effort cleanup for sections that have not been destructed yet
         // Since this is a fatal error, we have not had and won't have the opportunity to destruct them properly
@@ -520,7 +515,6 @@ namespace Catch {
     void RunContext::assertionPassed() {
         m_lastAssertionPassed = true;
         ++m_totals.assertions.passed;
-        resetAssertionInfo();
         m_messageScopes.clear();
     }
 
@@ -535,7 +529,7 @@ namespace Catch {
         Counts prevAssertions = m_totals.assertions;
         double duration = 0;
         m_shouldReportUnexpected = true;
-        m_lastAssertionInfo = { "TEST_CASE"_sr, testCaseInfo.lineInfo, StringRef(), ResultDisposition::Normal };
+        m_lastKnownLineInfo = testCaseInfo.lineInfo;
 
         Timer timer;
         CATCH_TRY {
@@ -552,9 +546,11 @@ namespace Catch {
         } CATCH_CATCH_ALL {
             // Under CATCH_CONFIG_FAST_COMPILE, unexpected exceptions under REQUIRE assertions
             // are reported without translation at the point of origin.
-            if( m_shouldReportUnexpected ) {
+            if ( m_shouldReportUnexpected ) {
                 AssertionReaction dummyReaction;
-                handleUnexpectedInflightException( m_lastAssertionInfo, translateActiveException(), dummyReaction );
+                handleUnexpectedInflightException( makeDummyAssertionInfo(),
+                                                   translateActiveException(),
+                                                   dummyReaction );
             }
         }
         Counts assertions = m_totals.assertions - prevAssertions;
@@ -622,14 +618,13 @@ namespace Catch {
             ITransientExpression const *expr,
             bool negated ) {
 
-        m_lastAssertionInfo.lineInfo = info.lineInfo;
+        m_lastKnownLineInfo = info.lineInfo;
         AssertionResultData data( resultType, LazyExpression( negated ) );
 
         AssertionResult assertionResult{ info, CATCH_MOVE( data ) };
         assertionResult.m_resultData.lazyExpression.m_transientExpression = expr;
 
         assertionEnded( CATCH_MOVE(assertionResult) );
-        resetAssertionInfo();
     }
 
     void RunContext::handleMessage(
@@ -638,7 +633,7 @@ namespace Catch {
             std::string&& message,
             AssertionReaction& reaction
     ) {
-        m_lastAssertionInfo.lineInfo = info.lineInfo;
+        m_lastKnownLineInfo = info.lineInfo;
 
         AssertionResultData data( resultType, LazyExpression( false ) );
         data.message = CATCH_MOVE( message );
@@ -655,8 +650,8 @@ namespace Catch {
             // considered "OK"
             reaction.shouldSkip = true;
         }
-        resetAssertionInfo();
     }
+
     void RunContext::handleUnexpectedExceptionNotThrown(
             AssertionInfo const& info,
             AssertionReaction& reaction
@@ -669,7 +664,7 @@ namespace Catch {
             std::string&& message,
             AssertionReaction& reaction
     ) {
-        m_lastAssertionInfo.lineInfo = info.lineInfo;
+        m_lastKnownLineInfo = info.lineInfo;
 
         AssertionResultData data( ResultWas::ThrewException, LazyExpression( false ) );
         data.message = CATCH_MOVE(message);
@@ -677,7 +672,6 @@ namespace Catch {
         assertionEnded( CATCH_MOVE(assertionResult) );
         populateReaction( reaction,
                           info.resultDisposition & ResultDisposition::Normal );
-        resetAssertionInfo();
     }
 
     void RunContext::populateReaction( AssertionReaction& reaction,
@@ -686,24 +680,36 @@ namespace Catch {
         reaction.shouldThrow = aborting() || has_normal_disposition;
     }
 
+    AssertionInfo RunContext::makeDummyAssertionInfo() {
+        const bool testCaseJustStarted =
+            m_lastKnownLineInfo == m_activeTestCase->getTestCaseInfo().lineInfo;
+
+        return AssertionInfo{
+            testCaseJustStarted ? "TEST_CASE"_sr : StringRef(),
+            m_lastKnownLineInfo,
+            testCaseJustStarted ? StringRef() : "{Unknown expression after the reported line}"_sr,
+            ResultDisposition::Normal
+        };
+    }
+
     void RunContext::handleIncomplete(
             AssertionInfo const& info
     ) {
         using namespace std::string_literals;
-        m_lastAssertionInfo.lineInfo = info.lineInfo;
+        m_lastKnownLineInfo = info.lineInfo;
 
         AssertionResultData data( ResultWas::ThrewException, LazyExpression( false ) );
         data.message = "Exception translation was disabled by CATCH_CONFIG_FAST_COMPILE"s;
         AssertionResult assertionResult{ info, CATCH_MOVE( data ) };
         assertionEnded( CATCH_MOVE(assertionResult) );
-        resetAssertionInfo();
     }
+
     void RunContext::handleNonExpr(
             AssertionInfo const &info,
             ResultWas::OfType resultType,
             AssertionReaction &reaction
     ) {
-        m_lastAssertionInfo.lineInfo = info.lineInfo;
+        m_lastKnownLineInfo = info.lineInfo;
 
         AssertionResultData data( resultType, LazyExpression( false ) );
         AssertionResult assertionResult{ info, CATCH_MOVE( data ) };
@@ -714,9 +720,7 @@ namespace Catch {
             populateReaction(
                 reaction, info.resultDisposition & ResultDisposition::Normal );
         }
-        resetAssertionInfo();
     }
-
 
     IResultCapture& getResultCapture() {
         if (auto* capture = getCurrentContext().getResultCapture())
