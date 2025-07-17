@@ -416,8 +416,6 @@ void ConsoleReporter::reportInvalidTestSpec( StringRef arg ) {
     m_stream << "Invalid Filter: " << arg << '\n';
 }
 
-void ConsoleReporter::assertionStarting(AssertionInfo const&) {}
-
 void ConsoleReporter::assertionEnded(AssertionStats const& _assertionStats) {
     AssertionResult const& result = _assertionStats.assertionResult;
 

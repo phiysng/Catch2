@@ -280,7 +280,6 @@ namespace Catch {
         endObject();
     }
 
-    void JsonReporter::assertionStarting( AssertionInfo const& /*assertionInfo*/ ) {}
     void JsonReporter::assertionEnded( AssertionStats const& assertionStats ) {
         // TODO: There is lot of different things to handle here, but
         //       we can fill it in later, after we show that the basic

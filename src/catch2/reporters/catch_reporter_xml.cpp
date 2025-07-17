@@ -86,8 +86,6 @@ namespace Catch {
         }
     }
 
-    void XmlReporter::assertionStarting( AssertionInfo const& ) { }
-
     void XmlReporter::assertionEnded( AssertionStats const& assertionStats ) {
 
         AssertionResult const& result = assertionStats.assertionResult;
