@@ -401,7 +401,10 @@ ConsoleReporter::ConsoleReporter(ReporterConfig&& config):
                 { "est run time high mean  high std dev", 14, Justification::Right }
             };
         }
-    }())) {}
+    }())) {
+    m_preferences.shouldReportAllAssertionStarts = false;
+}
+
 ConsoleReporter::~ConsoleReporter() = default;
 
 std::string ConsoleReporter::getDescription() {

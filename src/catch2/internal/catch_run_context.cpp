@@ -172,6 +172,7 @@ namespace Catch {
         m_lastKnownLineInfo("DummyLocation", static_cast<size_t>(-1)),
         m_outputRedirect( makeOutputRedirect( m_reporter->getPreferences().shouldRedirectStdOut ) ),
         m_abortAfterXFailedAssertions( m_config->abortAfter() ),
+        m_reportAssertionStarting( m_reporter->getPreferences().shouldReportAllAssertionStarts ),
         m_includeSuccessfulResults( m_config->includeSuccessfulResults() || m_reporter->getPreferences().shouldReportAllAssertions ),
         m_shouldDebugBreak( m_config->shouldDebugBreak() )
     {
@@ -309,8 +310,10 @@ namespace Catch {
     }
 
     void RunContext::notifyAssertionStarted( AssertionInfo const& info ) {
-        auto _ = scopedDeactivate( *m_outputRedirect );
-        m_reporter->assertionStarting( info );
+        if (m_reportAssertionStarting) {
+            auto _ = scopedDeactivate( *m_outputRedirect );
+            m_reporter->assertionStarting( info );
+        }
     }
 
     bool RunContext::sectionStarted( StringRef sectionName,

@@ -159,6 +159,9 @@ namespace Catch {
         size_t m_abortAfterXFailedAssertions;
         bool m_lastAssertionPassed = false;
         bool m_shouldReportUnexpected = true;
+        // Caches whether `assertionStarting` events should be sent to the reporter.
+        bool m_reportAssertionStarting;
+        // Caches whether `assertionEnded` events for successful assertions should be sent to the reporter
         bool m_includeSuccessfulResults;
         // Caches m_config->shouldDebugBreak() to avoid vptr calls/allow inlining
         bool m_shouldDebugBreak;

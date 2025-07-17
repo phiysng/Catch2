@@ -51,6 +51,8 @@ namespace Catch {
         //      not, but for machine-parseable reporters I think the answer
         //      should be yes.
         m_preferences.shouldReportAllAssertions = true;
+        // We only handle assertions when they end
+        m_preferences.shouldReportAllAssertionStarts = false;
 
         m_objectWriters.emplace( m_stream );
         m_writers.emplace( Writer::Object );
