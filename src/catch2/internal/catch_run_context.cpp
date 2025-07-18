@@ -515,7 +515,8 @@ namespace Catch {
          return m_lastAssertionPassed;
     }
 
-    void RunContext::assertionPassed() {
+    void RunContext::assertionPassedFastPath(SourceLineInfo lineInfo) {
+        m_lastKnownLineInfo = lineInfo;
         m_lastAssertionPassed = true;
         ++m_totals.assertions.passed;
         m_messageScopes.clear();
@@ -603,7 +604,8 @@ namespace Catch {
 
         if( result ) {
             if (!m_includeSuccessfulResults) {
-                assertionPassed();
+                // Fast path if neither user nor reporter asked for passing assertions
+                assertionPassedFastPath(info.lineInfo);
             }
             else {
                 reportExpr(info, ResultWas::Ok, &expr, negated);

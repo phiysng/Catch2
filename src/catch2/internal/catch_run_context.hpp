@@ -108,7 +108,7 @@ namespace Catch {
 
         bool lastAssertionPassed() override;
 
-        void assertionPassed();
+        void assertionPassedFastPath(SourceLineInfo lineInfo);
 
     public:
         // !TBD We need to do this another way!
