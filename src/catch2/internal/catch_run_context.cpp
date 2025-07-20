@@ -720,6 +720,11 @@ namespace Catch {
         AssertionResult assertionResult{ info, CATCH_MOVE( data ) };
 
         const auto isOk = assertionResult.isOk();
+        if ( isOk && !m_includeSuccessfulResults ) {
+            assertionPassedFastPath( info.lineInfo );
+            return;
+        }
+
         assertionEnded( CATCH_MOVE(assertionResult) );
         if ( !isOk ) {
             populateReaction(
