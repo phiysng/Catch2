@@ -108,7 +108,7 @@ namespace Catch {
 
         bool lastAssertionPassed() override;
 
-        void assertionPassed() override;
+        void assertionPassed();
 
     public:
         // !TBD We need to do this another way!
