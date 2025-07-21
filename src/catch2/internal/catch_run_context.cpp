@@ -437,13 +437,17 @@ namespace Catch {
     }
 
     void RunContext::popScopedMessage( MessageInfo const& message ) {
+        // Note: On average, it would probably be better to look for the message
+        //       backwards. However, we do not expect to have to deal with more
+        //       messages than low single digits, so the optimization is tiny,
+        //       and we would have to hand-write the loop to avoid terrible
+        //       codegen of reverse iterators in debug mode.
         m_messages.erase(
-            std::remove_if( m_messages.begin(),
-                            m_messages.end(),
-                            [id = message.sequence]( MessageInfo const& msg ) {
-                                return msg.sequence == id;
-                            } ),
-            m_messages.end() );
+            std::find_if( m_messages.begin(),
+                          m_messages.end(),
+                          [id = message.sequence]( MessageInfo const& msg ) {
+                              return msg.sequence == id;
+                          } ) );
     }
 
     void RunContext::emplaceUnscopedMessage( MessageBuilder&& builder ) {
