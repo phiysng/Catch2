@@ -439,8 +439,14 @@ namespace Catch {
         m_messages.push_back(message);
     }
 
-    void RunContext::popScopedMessage(MessageInfo const & message) {
-        m_messages.erase(std::remove(m_messages.begin(), m_messages.end(), message), m_messages.end());
+    void RunContext::popScopedMessage( MessageInfo const& message ) {
+        m_messages.erase(
+            std::remove_if( m_messages.begin(),
+                            m_messages.end(),
+                            [id = message.sequence]( MessageInfo const& msg ) {
+                                return msg.sequence == id;
+                            } ),
+            m_messages.end() );
     }
 
     void RunContext::emplaceUnscopedMessage( MessageBuilder&& builder ) {
