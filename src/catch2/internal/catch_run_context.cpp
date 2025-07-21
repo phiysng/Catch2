@@ -296,6 +296,10 @@ namespace Catch {
         }
 
         {
+            if ( m_clearMessageScopes ) {
+                m_messageScopes.clear();
+                m_clearMessageScopes = false;
+            }
             auto _ = scopedDeactivate( *m_outputRedirect );
             m_reporter->assertionEnded( AssertionStats( result, m_messages, m_totals ) );
         }
@@ -524,9 +528,9 @@ namespace Catch {
 
     void RunContext::assertionPassedFastPath(SourceLineInfo lineInfo) {
         m_lastKnownLineInfo = lineInfo;
-        m_lastAssertionPassed = true;
         ++m_totals.assertions.passed;
-        m_messageScopes.clear();
+        m_lastAssertionPassed = true;
+        m_clearMessageScopes = true;
     }
 
     bool RunContext::aborting() const {
