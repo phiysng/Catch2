@@ -402,9 +402,6 @@ namespace Catch {
                               endInfo.durationInSeconds,
                               missingAssertions ) );
         }
-
-        m_messages.clear();
-        m_messageScopes.clear();
     }
 
     void RunContext::sectionEndedEarly(SectionEndInfo&& endInfo) {
@@ -568,8 +565,10 @@ namespace Catch {
 
         m_testCaseTracker->close();
         handleUnfinishedSections();
-        m_messages.clear();
         m_messageScopes.clear();
+        // TBD: At this point, m_messages should be empty. Do we want to
+        //      assert that this is true, or keep the defensive clear call?
+        m_messages.clear();
 
         SectionStats testCaseSectionStats(CATCH_MOVE(testCaseSection), assertions, duration, missingAssertions);
         m_reporter->sectionEnded(testCaseSectionStats);
