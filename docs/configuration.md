@@ -164,7 +164,7 @@ by using `_NO_` in the macro, e.g. `CATCH_CONFIG_NO_CPP17_UNCAUGHT_EXCEPTIONS`.
 
 > `CATCH_CONFIG_GETENV` was [introduced](https://github.com/catchorg/Catch2/pull/2562) in Catch2 3.2.0
 
-> `CATCH_CONFIG_USE_BUILTIN_CONSTANT_P` was introduced in Catch2 vX.Y.Z
+> `CATCH_CONFIG_USE_BUILTIN_CONSTANT_P` was introduced in Catch2 3.8.0
 
 Currently Catch enables `CATCH_CONFIG_WINDOWS_SEH` only when compiled with MSVC, because some versions of MinGW do not have the necessary Win32 API support.
 
