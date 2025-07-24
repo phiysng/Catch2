@@ -413,7 +413,7 @@ Tests are sorted by their name, their tags are ignored.
 ### rand
 Randomized order. The default order.
 
-> Randomized order has been made default in Catch2 X.Y.Z
+> Randomized order has been made default in Catch2 3.9.0
 
 The order is dependent on Catch2's random seed (see
 [`--rng-seed`](#rng-seed)), and is subset invariant. What this means
