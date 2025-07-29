@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuitesloose text artifact
 >
-  <testsuite name="<exe-name>" errors="17" failures="140" skipped="12" tests="2300" hostname="tbd" time="{duration}" timestamp="{iso8601-timestamp}">
+  <testsuite name="<exe-name>" errors="17" failures="140" skipped="12" tests="2302" hostname="tbd" time="{duration}" timestamp="{iso8601-timestamp}">
     <properties>
       <property name="random-seed" value="1"/>
       <property name="filters" value="&quot;*&quot; ~[!nonportable] ~[!benchmark] ~[approvals]"/>
@@ -60,6 +60,7 @@ failure to init
 at Generators.tests.cpp:<line number>
       </error>
     </testcase>
+    <testcase classname="<exe-name>.global" name="#3001: Enum-based bitfields can be captured" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="#748 - captures with unexpected exceptions" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="#748 - captures with unexpected exceptions/outside assertions" time="{duration}" status="run">
       <skipped message="TEST_CASE tagged with !mayfail"/>

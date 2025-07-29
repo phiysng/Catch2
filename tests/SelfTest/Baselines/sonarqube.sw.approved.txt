@@ -655,6 +655,7 @@ at Class.tests.cpp:<line number>
     <testCase name="#1319: Sections can have description (even if it is not saved/SectionName" duration="{duration}"/>
     <testCase name="#1403" duration="{duration}"/>
     <testCase name="#1548" duration="{duration}"/>
+    <testCase name="#3001: Enum-based bitfields can be captured" duration="{duration}"/>
     <testCase name="#809" duration="{duration}"/>
     <testCase name="#833" duration="{duration}"/>
     <testCase name="#872" duration="{duration}"/>
