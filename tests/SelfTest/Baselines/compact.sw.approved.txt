@@ -1848,6 +1848,9 @@ String.tests.cpp:<line number>: passed: with 1 message: '!(sr1.empty())'
 String.tests.cpp:<line number>: passed: with 1 message: 'sr1.size() == 3'
 String.tests.cpp:<line number>: passed: with 1 message: 'sr2.empty()'
 String.tests.cpp:<line number>: passed: with 1 message: 'sr2.size() == 0'
+ToString.tests.cpp:<line number>: passed: tos == tos for: { stringification failed with an exception: "Invalid" }
+==
+{ stringification failed with an exception: "Invalid" }
 ToString.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( with_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""
 ToString.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( no_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""
 ToString.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( with_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""
@@ -2874,7 +2877,7 @@ InternalBenchmark.tests.cpp:<line number>: passed: med == 18. for: 18.0 == 18.0
 InternalBenchmark.tests.cpp:<line number>: passed: q3 == 23. for: 23.0 == 23.0
 Misc.tests.cpp:<line number>: passed:
 Misc.tests.cpp:<line number>: passed:
-test cases:  433 |  315 passed |  95 failed | 6 skipped | 17 failed as expected
-assertions: 2291 | 2093 passed | 157 failed | 41 failed as expected
+test cases:  434 |  316 passed |  95 failed | 6 skipped | 17 failed as expected
+assertions: 2292 | 2094 passed | 157 failed | 41 failed as expected
 
 

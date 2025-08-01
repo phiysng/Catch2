@@ -13725,6 +13725,19 @@ Message from section two
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
+  <TestCase name="Stringifying bla bla bla" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+    <Expression success="true" type="CHECK" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+      <Original>
+        tos == tos
+      </Original>
+      <Expanded>
+        { stringification failed with an exception: "Invalid" }
+==
+{ stringification failed with an exception: "Invalid" }
+      </Expanded>
+    </Expression>
+    <OverallResult success="true" skips="0"/>
+  </TestCase>
   <TestCase name="Stringifying char arrays with statically known sizes - char" tags="[toString]" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
     <Expression success="true" type="CHECK" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
       <Original>
@@ -22214,6 +22227,6 @@ Approx( -1.95996398454005449 )
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
-  <OverallResults successes="2093" failures="157" expectedFailures="41" skips="12"/>
-  <OverallResultsCases successes="315" failures="95" expectedFailures="17" skips="6"/>
+  <OverallResults successes="2094" failures="157" expectedFailures="41" skips="12"/>
+  <OverallResultsCases successes="316" failures="95" expectedFailures="17" skips="6"/>
 </Catch2TestRun>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="<exe-name>" errors="17" failures="140" skipped="12" tests="2303" hostname="tbd" time="{duration}" timestamp="{iso8601-timestamp}">
+  <testsuite name="<exe-name>" errors="17" failures="140" skipped="12" tests="2304" hostname="tbd" time="{duration}" timestamp="{iso8601-timestamp}">
     <properties>
       <property name="random-seed" value="1"/>
       <property name="filters" value="&quot;*&quot; ~[!nonportable] ~[!benchmark] ~[approvals]"/>
@@ -1510,6 +1510,7 @@ at Matchers.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="StringRef at compilation time" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="StringRef at compilation time/Simple constructors" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="StringRef at compilation time/UDL construction" time="{duration}" status="run"/>
+    <testcase classname="<exe-name>.global" name="Stringifying bla bla bla" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Stringifying char arrays with statically known sizes - char" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Stringifying char arrays with statically known sizes - signed char" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Stringifying char arrays with statically known sizes - unsigned char" time="{duration}" status="run"/>

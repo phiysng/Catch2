@@ -11783,6 +11783,19 @@ with message:
   sr2.size() == 0
 
 -------------------------------------------------------------------------------
+Stringifying bla bla bla
+-------------------------------------------------------------------------------
+ToString.tests.cpp:<line number>
+...............................................................................
+
+ToString.tests.cpp:<line number>: PASSED:
+  CHECK( tos == tos )
+with expansion:
+  { stringification failed with an exception: "Invalid" }
+  ==
+  { stringification failed with an exception: "Invalid" }
+
+-------------------------------------------------------------------------------
 Stringifying char arrays with statically known sizes - char
 -------------------------------------------------------------------------------
 ToString.tests.cpp:<line number>
@@ -19202,6 +19215,6 @@ Misc.tests.cpp:<line number>
 Misc.tests.cpp:<line number>: PASSED:
 
 ===============================================================================
-test cases:  433 |  315 passed |  95 failed | 6 skipped | 17 failed as expected
-assertions: 2291 | 2093 passed | 157 failed | 41 failed as expected
+test cases:  434 |  316 passed |  95 failed | 6 skipped | 17 failed as expected
+assertions: 2292 | 2094 passed | 157 failed | 41 failed as expected
 

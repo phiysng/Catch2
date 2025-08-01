@@ -617,6 +617,8 @@
 ##teamcity[testFinished name='StringRef' duration="{duration}"]
 ##teamcity[testStarted name='StringRef at compilation time']
 ##teamcity[testFinished name='StringRef at compilation time' duration="{duration}"]
+##teamcity[testStarted name='Stringifying bla bla bla']
+##teamcity[testFinished name='Stringifying bla bla bla' duration="{duration}"]
 ##teamcity[testStarted name='Stringifying char arrays with statically known sizes - char']
 ##teamcity[testFinished name='Stringifying char arrays with statically known sizes - char' duration="{duration}"]
 ##teamcity[testStarted name='Stringifying char arrays with statically known sizes - signed char']
