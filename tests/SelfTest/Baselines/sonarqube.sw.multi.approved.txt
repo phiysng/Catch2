@@ -2297,6 +2297,7 @@ at Skip.tests.cpp:<line number>
     <testCase name="Stringifying std::chrono::duration helpers" duration="{duration}"/>
     <testCase name="Stringifying std::chrono::duration with weird ratios" duration="{duration}"/>
     <testCase name="Stringifying std::chrono::time_point&lt;system_clock>" duration="{duration}"/>
+    <testCase name="system_clock timepoint with non-default duration" duration="{duration}"/>
   </file>
   <file path="tests/<exe-name>/UsageTests/ToStringGeneral.tests.cpp">
     <testCase name="Capture and info messages" duration="{duration}"/>

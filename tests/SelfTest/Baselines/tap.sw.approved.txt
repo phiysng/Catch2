@@ -4411,6 +4411,8 @@ ok {test-number} - data.str.size() == data.len for: 3 == 3
 ok {test-number} - data.str.size() == data.len for: 5 == 5
 # strlen3
 ok {test-number} - data.str.size() == data.len for: 4 == 4
+# system_clock timepoint with non-default duration
+ok {test-number} - tp1 == tp2 for: {iso8601-timestamp} == {iso8601-timestamp}
 # tables
 ok {test-number} - strlen(std::get<0>(data)) == static_cast<size_t>(std::get<1>(data)) for: 5 == 5
 # tables
@@ -4601,5 +4603,5 @@ ok {test-number} - q3 == 23. for: 23.0 == 23.0
 ok {test-number} -
 # xmlentitycheck
 ok {test-number} -
-1..2302
+1..2303
 

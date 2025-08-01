@@ -412,6 +412,7 @@ b1!
 :test-result: PASS stringify( vectors<has_maker_and_operator> )
 :test-result: PASS stringify( vectors<has_operator> )
 :test-result: PASS strlen3
+:test-result: PASS system_clock timepoint with non-default duration
 :test-result: PASS tables
 :test-result: PASS tags with dots in later positions are not parsed as hidden
 :test-result: SKIP tests can be skipped dynamically at runtime

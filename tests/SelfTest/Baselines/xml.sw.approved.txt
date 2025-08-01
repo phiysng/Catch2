@@ -21324,6 +21324,19 @@ Approx( -1.95996398454005449 )
     </Expression>
     <OverallResult success="true" skips="0"/>
   </TestCase>
+  <TestCase name="system_clock timepoint with non-default duration" tags="[chrono][toString]" filename="tests/<exe-name>/UsageTests/ToStringChrono.tests.cpp" >
+    <Expression success="true" type="CHECK" filename="tests/<exe-name>/UsageTests/ToStringChrono.tests.cpp" >
+      <Original>
+        tp1 == tp2
+      </Original>
+      <Expanded>
+        {iso8601-timestamp}
+==
+{iso8601-timestamp}
+      </Expanded>
+    </Expression>
+    <OverallResult success="true" skips="0"/>
+  </TestCase>
   <TestCase name="tables" tags="[generators]" filename="tests/<exe-name>/UsageTests/Generators.tests.cpp" >
     <Expression success="true" type="REQUIRE" filename="tests/<exe-name>/UsageTests/Generators.tests.cpp" >
       <Original>
@@ -22201,6 +22214,6 @@ Approx( -1.95996398454005449 )
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
-  <OverallResults successes="2092" failures="157" expectedFailures="41" skips="12"/>
-  <OverallResultsCases successes="314" failures="95" expectedFailures="17" skips="6"/>
+  <OverallResults successes="2093" failures="157" expectedFailures="41" skips="12"/>
+  <OverallResultsCases successes="315" failures="95" expectedFailures="17" skips="6"/>
 </Catch2TestRun>

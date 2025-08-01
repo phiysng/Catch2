@@ -2766,6 +2766,9 @@ Generators.tests.cpp:<line number>: passed: data.str.size() == data.len for: 3 =
 Generators.tests.cpp:<line number>: passed: data.str.size() == data.len for: 3 == 3
 Generators.tests.cpp:<line number>: passed: data.str.size() == data.len for: 5 == 5
 Generators.tests.cpp:<line number>: passed: data.str.size() == data.len for: 4 == 4
+ToStringChrono.tests.cpp:<line number>: passed: tp1 == tp2 for: {iso8601-timestamp}
+==
+{iso8601-timestamp}
 Generators.tests.cpp:<line number>: passed: strlen(std::get<0>(data)) == static_cast<size_t>(std::get<1>(data)) for: 5 == 5
 Generators.tests.cpp:<line number>: passed: strlen(std::get<0>(data)) == static_cast<size_t>(std::get<1>(data)) for: 6 == 6
 Generators.tests.cpp:<line number>: passed: strlen(std::get<0>(data)) == static_cast<size_t>(std::get<1>(data)) for: 5 == 5
@@ -2871,7 +2874,7 @@ InternalBenchmark.tests.cpp:<line number>: passed: med == 18. for: 18.0 == 18.0
 InternalBenchmark.tests.cpp:<line number>: passed: q3 == 23. for: 23.0 == 23.0
 Misc.tests.cpp:<line number>: passed:
 Misc.tests.cpp:<line number>: passed:
-test cases:  432 |  314 passed |  95 failed | 6 skipped | 17 failed as expected
-assertions: 2290 | 2092 passed | 157 failed | 41 failed as expected
+test cases:  433 |  315 passed |  95 failed | 6 skipped | 17 failed as expected
+assertions: 2291 | 2093 passed | 157 failed | 41 failed as expected
 
 

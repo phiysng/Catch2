@@ -998,6 +998,8 @@
 ##teamcity[testFinished name='stringify( vectors<has_operator> )' duration="{duration}"]
 ##teamcity[testStarted name='strlen3']
 ##teamcity[testFinished name='strlen3' duration="{duration}"]
+##teamcity[testStarted name='system_clock timepoint with non-default duration']
+##teamcity[testFinished name='system_clock timepoint with non-default duration' duration="{duration}"]
 ##teamcity[testStarted name='tables']
 ##teamcity[testFinished name='tables' duration="{duration}"]
 ##teamcity[testStarted name='tags with dots in later positions are not parsed as hidden']

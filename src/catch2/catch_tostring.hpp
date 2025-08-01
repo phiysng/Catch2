@@ -626,17 +626,19 @@ struct ratio_string<std::milli> {
     template<typename Duration>
     struct StringMaker<std::chrono::time_point<std::chrono::system_clock, Duration>> {
         static std::string convert(std::chrono::time_point<std::chrono::system_clock, Duration> const& time_point) {
-            auto converted = std::chrono::system_clock::to_time_t(time_point);
+            const auto systemish = std::chrono::time_point_cast<
+                std::chrono::system_clock::duration>( time_point );
+            const auto as_time_t = std::chrono::system_clock::to_time_t( systemish );
 
 #ifdef _MSC_VER
             std::tm timeInfo = {};
-            const auto err = gmtime_s(&timeInfo, &converted);
+            const auto err = gmtime_s( &timeInfo, &as_time_t );
             if ( err ) {
                 return "gmtime from provided timepoint has failed. This "
                        "happens e.g. with pre-1970 dates using Microsoft libc";
             }
 #else
-            std::tm* timeInfo = std::gmtime(&converted);
+            std::tm* timeInfo = std::gmtime( &as_time_t );
 #endif
 
             auto const timeStampSize = sizeof("2017-01-16T17:06:45Z");

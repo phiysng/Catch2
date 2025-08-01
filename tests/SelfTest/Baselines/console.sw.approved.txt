@@ -18410,6 +18410,19 @@ with expansion:
   4 == 4
 
 -------------------------------------------------------------------------------
+system_clock timepoint with non-default duration
+-------------------------------------------------------------------------------
+ToStringChrono.tests.cpp:<line number>
+...............................................................................
+
+ToStringChrono.tests.cpp:<line number>: PASSED:
+  CHECK( tp1 == tp2 )
+with expansion:
+  {iso8601-timestamp}
+  ==
+  {iso8601-timestamp}
+
+-------------------------------------------------------------------------------
 tables
 -------------------------------------------------------------------------------
 Generators.tests.cpp:<line number>
@@ -19200,6 +19213,6 @@ Misc.tests.cpp:<line number>
 Misc.tests.cpp:<line number>: PASSED:
 
 ===============================================================================
-test cases:  432 |  314 passed |  95 failed | 6 skipped | 17 failed as expected
-assertions: 2290 | 2092 passed | 157 failed | 41 failed as expected
+test cases:  433 |  315 passed |  95 failed | 6 skipped | 17 failed as expected
+assertions: 2291 | 2093 passed | 157 failed | 41 failed as expected
 
