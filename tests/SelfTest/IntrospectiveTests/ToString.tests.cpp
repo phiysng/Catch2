@@ -135,7 +135,7 @@ struct Catch::StringMaker<ThrowsOnStringification> {
     }
 };
 
-TEST_CASE( "Stringifying bla bla bla" ) {
+TEST_CASE( "Exception thrown inside stringify does not fail the test", "[toString]" ) {
     ThrowsOnStringification tos;
     CHECK( tos == tos );
 }

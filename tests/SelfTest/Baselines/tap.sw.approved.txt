@@ -1130,6 +1130,8 @@ ok {test-number} - thisThrows(), EndsWith( "exception" ) for: "expected exceptio
 ok {test-number} - thisThrows(), ContainsSubstring( "except" ) for: "expected exception" contains: "except"
 # Exception messages can be tested for
 ok {test-number} - thisThrows(), ContainsSubstring( "exCept", Catch::CaseSensitive::No ) for: "expected exception" contains: "except" (case insensitive)
+# Exception thrown inside stringify does not fail the test
+ok {test-number} - tos == tos for: { stringification failed with an exception: "Invalid" } == { stringification failed with an exception: "Invalid" }
 # Exceptions matchers
 ok {test-number} - throwsDerivedException(), DerivedException, Message( "DerivedException::what" ) for: DerivedException::what exception message matches "DerivedException::what"
 # Exceptions matchers
@@ -2803,8 +2805,6 @@ ok {test-number} - with 1 message: 'sr1.size() == 3'
 ok {test-number} - with 1 message: 'sr2.empty()'
 # StringRef at compilation time
 ok {test-number} - with 1 message: 'sr2.size() == 0'
-# Stringifying bla bla bla
-ok {test-number} - tos == tos for: { stringification failed with an exception: "Invalid" } == { stringification failed with an exception: "Invalid" }
 # Stringifying char arrays with statically known sizes - char
 ok {test-number} - ::Catch::Detail::stringify( with_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""
 # Stringifying char arrays with statically known sizes - char

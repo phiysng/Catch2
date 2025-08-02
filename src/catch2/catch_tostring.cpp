@@ -121,8 +121,6 @@ namespace Detail {
 
     }
 
-
-
 } // end Detail namespace
 
 

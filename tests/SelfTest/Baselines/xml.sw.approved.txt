@@ -5121,6 +5121,19 @@ Approx( 1.30000000000000004 )
     </Section>
     <OverallResult success="true" skips="0"/>
   </TestCase>
+  <TestCase name="Exception thrown inside stringify does not fail the test" tags="[toString]" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+    <Expression success="true" type="CHECK" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
+      <Original>
+        tos == tos
+      </Original>
+      <Expanded>
+        { stringification failed with an exception: "Invalid" }
+==
+{ stringification failed with an exception: "Invalid" }
+      </Expanded>
+    </Expression>
+    <OverallResult success="true" skips="0"/>
+  </TestCase>
   <TestCase name="Exceptions matchers" tags="[!throws][exceptions][matchers]" filename="tests/<exe-name>/UsageTests/Matchers.tests.cpp" >
     <Expression success="true" type="REQUIRE_THROWS_MATCHES" filename="tests/<exe-name>/UsageTests/Matchers.tests.cpp" >
       <Original>
@@ -13723,19 +13736,6 @@ Message from section two
     <Section name="UDL construction" filename="tests/<exe-name>/IntrospectiveTests/String.tests.cpp" >
       <OverallResults successes="4" failures="0" expectedFailures="0" skipped="false"/>
     </Section>
-    <OverallResult success="true" skips="0"/>
-  </TestCase>
-  <TestCase name="Stringifying bla bla bla" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
-    <Expression success="true" type="CHECK" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >
-      <Original>
-        tos == tos
-      </Original>
-      <Expanded>
-        { stringification failed with an exception: "Invalid" }
-==
-{ stringification failed with an exception: "Invalid" }
-      </Expanded>
-    </Expression>
     <OverallResult success="true" skips="0"/>
   </TestCase>
   <TestCase name="Stringifying char arrays with statically known sizes - char" tags="[toString]" filename="tests/<exe-name>/IntrospectiveTests/ToString.tests.cpp" >

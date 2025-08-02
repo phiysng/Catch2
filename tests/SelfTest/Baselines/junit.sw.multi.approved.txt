@@ -743,6 +743,7 @@ at Matchers.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="Exception messages can be tested for/exact match" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Exception messages can be tested for/different case" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Exception messages can be tested for/wildcarded" time="{duration}" status="run"/>
+    <testcase classname="<exe-name>.global" name="Exception thrown inside stringify does not fail the test" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Exceptions matchers" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Expected exceptions that don't throw or unexpected exceptions fail the test" time="{duration}" status="run">
       <error message="thisThrows(), std::string" type="CHECK_THROWS_AS">
@@ -1510,7 +1511,6 @@ at Matchers.tests.cpp:<line number>
     <testcase classname="<exe-name>.global" name="StringRef at compilation time" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="StringRef at compilation time/Simple constructors" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="StringRef at compilation time/UDL construction" time="{duration}" status="run"/>
-    <testcase classname="<exe-name>.global" name="Stringifying bla bla bla" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Stringifying char arrays with statically known sizes - char" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Stringifying char arrays with statically known sizes - signed char" time="{duration}" status="run"/>
     <testcase classname="<exe-name>.global" name="Stringifying char arrays with statically known sizes - unsigned char" time="{duration}" status="run"/>

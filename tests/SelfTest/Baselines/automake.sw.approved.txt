@@ -153,6 +153,7 @@ Nor would this
 :test-result: PASS Exception matchers that succeed
 :test-result: PASS Exception message can be matched
 :test-result: PASS Exception messages can be tested for
+:test-result: PASS Exception thrown inside stringify does not fail the test
 :test-result: PASS Exceptions matchers
 :test-result: FAIL Expected exceptions that don't throw or unexpected exceptions fail the test
 :test-result: FAIL FAIL aborts the test
@@ -248,7 +249,6 @@ Message from section two
 :test-result: PASS String matchers
 :test-result: PASS StringRef
 :test-result: PASS StringRef at compilation time
-:test-result: PASS Stringifying bla bla bla
 :test-result: PASS Stringifying char arrays with statically known sizes - char
 :test-result: PASS Stringifying char arrays with statically known sizes - signed char
 :test-result: PASS Stringifying char arrays with statically known sizes - unsigned char

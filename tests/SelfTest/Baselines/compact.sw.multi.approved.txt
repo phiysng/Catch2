@@ -633,6 +633,9 @@ Exception.tests.cpp:<line number>: passed: thisThrows(), StartsWith( "expected" 
 Exception.tests.cpp:<line number>: passed: thisThrows(), EndsWith( "exception" ) for: "expected exception" ends with: "exception"
 Exception.tests.cpp:<line number>: passed: thisThrows(), ContainsSubstring( "except" ) for: "expected exception" contains: "except"
 Exception.tests.cpp:<line number>: passed: thisThrows(), ContainsSubstring( "exCept", Catch::CaseSensitive::No ) for: "expected exception" contains: "except" (case insensitive)
+ToString.tests.cpp:<line number>: passed: tos == tos for: { stringification failed with an exception: "Invalid" }
+==
+{ stringification failed with an exception: "Invalid" }
 Matchers.tests.cpp:<line number>: passed: throwsDerivedException(), DerivedException, Message( "DerivedException::what" ) for: DerivedException::what exception message matches "DerivedException::what"
 Matchers.tests.cpp:<line number>: passed: throwsDerivedException(), DerivedException, !Message( "derivedexception::what" ) for: DerivedException::what not exception message matches "derivedexception::what"
 Matchers.tests.cpp:<line number>: passed: throwsSpecialException( 2 ), SpecialException, !Message( "DerivedException::what" ) for: SpecialException::what not exception message matches "DerivedException::what"
@@ -1841,9 +1844,6 @@ String.tests.cpp:<line number>: passed: with 1 message: '!(sr1.empty())'
 String.tests.cpp:<line number>: passed: with 1 message: 'sr1.size() == 3'
 String.tests.cpp:<line number>: passed: with 1 message: 'sr2.empty()'
 String.tests.cpp:<line number>: passed: with 1 message: 'sr2.size() == 0'
-ToString.tests.cpp:<line number>: passed: tos == tos for: { stringification failed with an exception: "Invalid" }
-==
-{ stringification failed with an exception: "Invalid" }
 ToString.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( with_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""
 ToString.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( no_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""
 ToString.tests.cpp:<line number>: passed: ::Catch::Detail::stringify( with_null_terminator ) == R"("abc")"s for: ""abc"" == ""abc""

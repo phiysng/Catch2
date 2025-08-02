@@ -4555,6 +4555,19 @@ with expansion:
   "expected exception" contains: "except" (case insensitive)
 
 -------------------------------------------------------------------------------
+Exception thrown inside stringify does not fail the test
+-------------------------------------------------------------------------------
+ToString.tests.cpp:<line number>
+...............................................................................
+
+ToString.tests.cpp:<line number>: PASSED:
+  CHECK( tos == tos )
+with expansion:
+  { stringification failed with an exception: "Invalid" }
+  ==
+  { stringification failed with an exception: "Invalid" }
+
+-------------------------------------------------------------------------------
 Exceptions matchers
 -------------------------------------------------------------------------------
 Matchers.tests.cpp:<line number>
@@ -11781,19 +11794,6 @@ with message:
 String.tests.cpp:<line number>: PASSED:
 with message:
   sr2.size() == 0
-
--------------------------------------------------------------------------------
-Stringifying bla bla bla
--------------------------------------------------------------------------------
-ToString.tests.cpp:<line number>
-...............................................................................
-
-ToString.tests.cpp:<line number>: PASSED:
-  CHECK( tos == tos )
-with expansion:
-  { stringification failed with an exception: "Invalid" }
-  ==
-  { stringification failed with an exception: "Invalid" }
 
 -------------------------------------------------------------------------------
 Stringifying char arrays with statically known sizes - char
