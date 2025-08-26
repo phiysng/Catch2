@@ -483,8 +483,8 @@ namespace Catch {
         m_reporter->benchmarkFailed( error );
     }
 
-    void RunContext::pushScopedMessage( MessageInfo const& message ) {
-        Detail::g_messages.push_back( message );
+    void RunContext::pushScopedMessage( MessageInfo&& message ) {
+        Detail::g_messages.push_back( CATCH_MOVE(message) );
     }
 
     void RunContext::popScopedMessage( unsigned int messageId ) {

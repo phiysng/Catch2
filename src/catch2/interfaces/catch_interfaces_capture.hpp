@@ -62,7 +62,7 @@ namespace Catch {
         virtual void benchmarkEnded( BenchmarkStats<> const& stats ) = 0;
         virtual void benchmarkFailed( StringRef error ) = 0;
 
-        virtual void pushScopedMessage( MessageInfo const& message ) = 0;
+        virtual void pushScopedMessage( MessageInfo&& message ) = 0;
         virtual void popScopedMessage( unsigned int messageId ) = 0;
 
         virtual void emplaceUnscopedMessage( MessageBuilder&& builder ) = 0;

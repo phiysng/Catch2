@@ -19,20 +19,19 @@ namespace Catch {
 
 
     ScopedMessage::ScopedMessage( MessageBuilder&& builder ):
-        m_info( CATCH_MOVE(builder.m_info) ) {
-        m_info.message = builder.m_stream.str();
-        getResultCapture().pushScopedMessage( m_info );
+        m_messageId( builder.m_info.sequence ) {
+        MessageInfo info( CATCH_MOVE( builder.m_info ) );
+        info.message = builder.m_stream.str();
+        getResultCapture().pushScopedMessage( CATCH_MOVE(info) );
     }
 
     ScopedMessage::ScopedMessage( ScopedMessage&& old ) noexcept:
-        m_info( CATCH_MOVE( old.m_info ) ) {
+        m_messageId( old.m_messageId ) {
         old.m_moved = true;
     }
 
     ScopedMessage::~ScopedMessage() {
-        if ( !m_moved ){
-            getResultCapture().popScopedMessage(m_info.sequence);
-        }
+        if ( !m_moved ) { getResultCapture().popScopedMessage( m_messageId ); }
     }
 
 
@@ -109,7 +108,7 @@ namespace Catch {
     void Capturer::captureValue( size_t index, std::string const& value ) {
         assert( index < m_messages.size() );
         m_messages[index].message += value;
-        m_resultCapture.pushScopedMessage( m_messages[index] );
+        m_resultCapture.pushScopedMessage( CATCH_MOVE(m_messages[index]) );
         m_captured++;
     }
 
