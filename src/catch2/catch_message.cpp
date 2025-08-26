@@ -31,7 +31,7 @@ namespace Catch {
 
     ScopedMessage::~ScopedMessage() {
         if ( !m_moved ){
-            getResultCapture().popScopedMessage(m_info);
+            getResultCapture().popScopedMessage(m_info.sequence);
         }
     }
 
@@ -101,8 +101,8 @@ namespace Catch {
     }
     Capturer::~Capturer() {
         assert( m_captured == m_messages.size() );
-        for ( size_t i = 0; i < m_captured; ++i ) {
-            m_resultCapture.popScopedMessage( m_messages[i] );
+        for (auto const& message : m_messages) {
+            m_resultCapture.popScopedMessage( message.sequence );
         }
     }
 

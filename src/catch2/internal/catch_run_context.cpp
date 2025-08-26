@@ -487,7 +487,7 @@ namespace Catch {
         Detail::g_messages.push_back( message );
     }
 
-    void RunContext::popScopedMessage( MessageInfo const& message ) {
+    void RunContext::popScopedMessage( unsigned int messageId ) {
         // Note: On average, it would probably be better to look for the message
         //       backwards. However, we do not expect to have to deal with more
         //       messages than low single digits, so the optimization is tiny,
@@ -496,8 +496,8 @@ namespace Catch {
         Detail::g_messages.erase(
             std::find_if( Detail::g_messages.begin(),
                           Detail::g_messages.end(),
-                          [id = message.sequence]( MessageInfo const& msg ) {
-                              return msg.sequence == id;
+                          [=]( MessageInfo const& msg ) {
+                              return msg.sequence == messageId;
                           } ) );
     }
 

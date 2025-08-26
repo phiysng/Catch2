@@ -95,7 +95,7 @@ namespace Catch {
         void benchmarkFailed( StringRef error ) override;
 
         void pushScopedMessage( MessageInfo const& message ) override;
-        void popScopedMessage( MessageInfo const& message ) override;
+        void popScopedMessage( unsigned int messageId ) override;
 
         void emplaceUnscopedMessage( MessageBuilder&& builder ) override;
 
