@@ -429,6 +429,50 @@ set_tests_properties(Reporters::CrashInJunitReporter
     LABELS "uses-signals"
 )
 
+
+add_executable(QuickExitInTest ${TESTS_DIR}/X40-QuickExit.cpp)
+target_link_libraries(QuickExitInTest PRIVATE Catch2::Catch2WithMain)
+add_test(
+  NAME BazelEnv::TEST_PREMATURE_EXIT_FILE
+  COMMAND
+    Python3::Interpreter
+    "${CATCH_DIR}/tests/TestScripts/testBazelExitGuardFile.py"
+    $<TARGET_FILE:QuickExitInTest>
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    "bazel"
+)
+set_tests_properties(BazelEnv::TEST_PREMATURE_EXIT_FILE
+  PROPERTIES
+    LABELS "uses-python"
+)
+add_test(
+  NAME PrematureExitGuardFileCanBeUsedFromCLI::CheckAfterCrash
+  COMMAND
+    Python3::Interpreter
+    "${CATCH_DIR}/tests/TestScripts/testBazelExitGuardFile.py"
+    $<TARGET_FILE:QuickExitInTest>
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    "cli"
+)
+set_tests_properties(PrematureExitGuardFileCanBeUsedFromCLI::CheckAfterCrash
+  PROPERTIES
+    LABELS "uses-python"
+)
+add_test(
+  NAME PrematureExitGuardFileCanBeUsedFromCLI::CheckWithoutCrash
+  COMMAND
+    Python3::Interpreter
+    "${CATCH_DIR}/tests/TestScripts/testBazelExitGuardFile.py"
+    $<TARGET_FILE:QuickExitInTest>
+    "${CMAKE_CURRENT_BINARY_DIR}"
+    "no-crash"
+)
+set_tests_properties(PrematureExitGuardFileCanBeUsedFromCLI::CheckWithoutCrash
+  PROPERTIES
+    LABELS "uses-python"
+)
+
+
 add_executable(AssertionStartingEventGoesBeforeAssertionIsEvaluated
   X20-AssertionStartingEventGoesBeforeAssertionIsEvaluated.cpp
 )
