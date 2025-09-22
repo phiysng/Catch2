@@ -95,7 +95,7 @@ foreach(target DisabledExceptions-DefaultHandler DisabledExceptions-CustomHandle
   target_compile_options(${target}
     PUBLIC
       $<$<CXX_COMPILER_ID:MSVC>:/EHs-c-;/D_HAS_EXCEPTIONS=0>
-      $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:AppleClang>>:-fno-exceptions>
+      $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:QCC>,$<CXX_COMPILER_ID:AppleClang>>:-fno-exceptions>
   )
   target_link_libraries(${target} Catch2_buildall_interface)
 endforeach()
