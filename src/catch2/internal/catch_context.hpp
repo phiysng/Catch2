@@ -32,7 +32,6 @@ namespace Catch {
             m_resultCapture = resultCapture;
         }
         constexpr void setConfig( IConfig const* config ) { m_config = config; }
-
     };
 
     Context& getCurrentMutableContext();
