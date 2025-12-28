@@ -322,7 +322,7 @@ are not meant to be runnable, only "scannable".
 
 > Introduced in Catch2 3.9.0
 
-> Made non-experimental in Catch2 vX.Y.Z
+> Made non-experimental in Catch2 3.12.0
 
 Catch2 can optionally support thread-safe assertions, that means, multiple
 user-spawned threads can use the assertion macros at the same time. Due
