@@ -98,6 +98,7 @@ set(IMPL_HEADERS
   ${SOURCES_DIR}/internal/catch_jsonwriter.hpp
   ${SOURCES_DIR}/internal/catch_lazy_expr.hpp
   ${SOURCES_DIR}/internal/catch_leak_detector.hpp
+  ${SOURCES_DIR}/internal/catch_lifetimebound.hpp
   ${SOURCES_DIR}/internal/catch_list.hpp
   ${SOURCES_DIR}/internal/catch_logical_traits.hpp
   ${SOURCES_DIR}/internal/catch_message_info.hpp
@@ -139,6 +140,7 @@ set(IMPL_HEADERS
   ${SOURCES_DIR}/internal/catch_test_registry.hpp
   ${SOURCES_DIR}/internal/catch_test_spec_parser.hpp
   ${SOURCES_DIR}/internal/catch_textflow.hpp
+  ${SOURCES_DIR}/internal/catch_thread_local.hpp
   ${SOURCES_DIR}/internal/catch_thread_support.hpp
   ${SOURCES_DIR}/internal/catch_to_string.hpp
   ${SOURCES_DIR}/internal/catch_uncaught_exceptions.hpp
